@@ -1,0 +1,41 @@
+{
+    "ace": {
+        "@guessTabSize": "true",
+        "@newLineMode": "unix",
+        "@tabSize": "4",
+        "@useSoftTabs": "true"
+    },
+    "build": {
+        "@builder": "auto",
+        "@path": "/.c9/builders",
+        "@saveall": "true"
+    },
+    "c_cpp": {
+        "@compilerArguments": "-Wall -Wextra -std=c++11 -I/usr/include -I/usr/local/include"
+    },
+    "find.nak": {
+        "@searchLimit": 100
+    },
+    "general": {
+        "@stripws": true
+    },
+    "language": {
+        "@eslintrc": "true",
+        "@instanceHighlight": "true",
+        "@semi": "true",
+        "@undeclaredVars": "true",
+        "@unusedFunctionArgs": "false",
+        "@warnLevel": "info"
+    },
+    "python": {
+        "@path": "/usr/local/lib/python2.7/dist-packages:/usr/local/lib/python3.4/dist-packages",
+        "@version": "python2"
+    },
+    "run": {
+        "@path": "/.c9/runners",
+        "configs": {
+            "@inited": "true",
+            "json()": {}
+        }
+    }
+}
