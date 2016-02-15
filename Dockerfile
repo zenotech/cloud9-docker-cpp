@@ -4,10 +4,11 @@ FROM ubuntu:15.10
 ENV C9_USER=""
 ENV C9_PASSWORD=""
 
-# Install dependencies
+# Install dependencies and common packages
 RUN apt-get update && apt-get -y upgrade \
  && apt-get install -y git tmux bash curl wget build-essential python build-essential sudo \
- && apt-get clean
+    llvm-3.7 llvm-3.7-dev llvm-3.7-runtime libclang-3.7-dev libclang1-3.7 clang-format-3.7 \
+    autoconf automake cmake gdb libtool m4 valgrind && apt-get clean
 
 # Install dockerize and dumb-init
 RUN wget https://github.com/jwilder/dockerize/releases/download/v0.2.0/dockerize-linux-amd64-v0.2.0.tar.gz \
@@ -22,7 +23,6 @@ RUN git clone https://github.com/c9/core.git c9sdk && cd c9sdk \
 RUN rm /bin/sh && ln /bin/bash /bin/sh
 
 # Install the C++ plugin
-RUN apt-get install -y llvm-3.7 llvm-3.7-dev llvm-3.7-runtime libclang-3.7-dev libclang1-3.7 clang-format-3.7 && apt-get clean
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash
 RUN source ~/.nvm/nvm.sh && nvm install v0.12 && nvm alias default v0.12 && cd c9sdk && npm install && npm install clang_tool && npm install -g c9 \
  && mkdir ~/.c9/plugins && git clone https://github.com/invokr/c9.ide.language.cpp ~/.c9/plugins/c9.ide.language.cpp \
@@ -36,4 +36,4 @@ ADD scripts/run-c9.sh /run-c9.sh.tpl
 
 # Run c9
 EXPOSE 8080
-CMD ["/usr/local/bin/dumb-init", "/init.sh"]
+CMD ["/init.sh"]
