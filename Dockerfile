@@ -23,8 +23,8 @@ RUN git clone https://github.com/c9/core.git c9sdk && cd c9sdk \
 RUN rm /bin/sh && ln /bin/bash /bin/sh
 
 # Install the C++ plugin
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash
-RUN source ~/.nvm/nvm.sh && nvm install v0.12 && nvm alias default v0.12 && cd c9sdk && npm install && npm install clang_tool && npm install -g c9 \
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh  |  bash
+RUN source ~/.nvm/nvm.sh && nvm install v4.4.7 && nvm alias default v4.4.7 && cd c9sdk && npm install && npm install clang_tool && npm install -g c9 \
  && mkdir ~/.c9/plugins && git clone https://github.com/invokr/c9.ide.language.cpp ~/.c9/plugins/c9.ide.language.cpp \
  && cd ~/.c9/plugins/c9.ide.language.cpp && c9 build && mkdir /workspace
 
