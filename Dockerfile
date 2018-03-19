@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:latest
 
 # Settings
 ENV C9_USER=""
@@ -38,13 +38,13 @@ RUN source ~/.nvm/nvm.sh && npm install -g c9 && mkdir ~/.c9/plugins && git clon
 # && cd ~/.c9/plugins/c9.ide.language.cpp && c9 build && mkdir /workspace
 
 # Setup bitcoin core dependencies
-RUN apt-get install -y build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git
-RUN apt-get install -y g++-mingw-w64-x86-64 
+#RUN apt-get install -y build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git
+#RUN apt-get install -y g++-mingw-w64-x86-64 
 
 # for Ubuntu Zesty 17.04
 # RUN update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix # Set the default mingw32 g++ compiler option to posix.
 
-RUN cd /workspace && git clone https://github.com/bitcoin/bitcoin.git && chmod -R a+rw bitcoin
+#RUN cd /workspace && git clone https://github.com/bitcoin/bitcoin.git && chmod -R a+rw bitcoin
 
 # Add config and scripts
 ADD config/settings-state /settings-state
