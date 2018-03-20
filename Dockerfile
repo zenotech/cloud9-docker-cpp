@@ -21,30 +21,21 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/v0.6.0/dockerize
  && mv dumb-init_1.2.1_amd64 /usr/local/bin/dumb-init \
  && chmod +x /usr/local/bin/dumb-init
 
+# Install node.js
+RUN rm /bin/sh && ln /bin/bash /bin/sh
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh   |  bash
+RUN source ~/.nvm/nvm.sh && nvm install v6.2.2 && nvm alias default v6.2.2
+
 # Install cloud9
-RUN git clone https://github.com/c9/core.git c9sdk && cd c9sdk \
+RUN source ~/.nvm/nvm.sh && git clone https://github.com/c9/core.git c9sdk && cd c9sdk \
  && bash scripts/install-sdk.sh
 RUN rm /bin/sh && ln /bin/bash /bin/sh
 
 # Install the C++ plugin
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh   |  bash
-RUN source ~/.nvm/nvm.sh && nvm install v6.2.2 && nvm alias default v6.2.2
 RUN source ~/.nvm/nvm.sh && cd c9sdk && npm install git+https://github.com/justSlone/clang-tool-node.git
 #&& rm -R node_modules && npm install 
 RUN source ~/.nvm/nvm.sh && npm install -g c9 && mkdir ~/.c9/plugins && git clone https://github.com/invokr/c9.ide.language.cpp ~/.c9/plugins/c9.ide.language.cpp \
  && cd ~/.c9/plugins/c9.ide.language.cpp && c9 build && mkdir /workspace && mkdir /drop
-
-# RUN mkdir ~/.c9/plugins && git clone https://github.com/invokr/c9.ide.language.cpp ~/.c9/plugins/c9.ide.language.cpp \
-# && cd ~/.c9/plugins/c9.ide.language.cpp && c9 build && mkdir /workspace
-
-# Setup bitcoin core dependencies
-#RUN apt-get install -y build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git
-#RUN apt-get install -y g++-mingw-w64-x86-64 
-
-# for Ubuntu Zesty 17.04
-# RUN update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix # Set the default mingw32 g++ compiler option to posix.
-
-#RUN cd /workspace && git clone https://github.com/bitcoin/bitcoin.git && chmod -R a+rw bitcoin
 
 # Add config and scripts
 ADD config/settings-state /settings-state
